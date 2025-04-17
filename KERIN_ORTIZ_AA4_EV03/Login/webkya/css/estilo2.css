@@ -1,0 +1,20 @@
+.btn_close-sesion {
+    /* Estilos para el contenedor */
+    text-align: center;
+    margin-top: 20px;
+}
+
+#btn_cerrar-sesion {
+    padding: 10px 20px ;
+    border-radius: 15px; 
+    border: none;
+    background: black;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+}
+
+#btn_cerrar-sesion:hover {
+    background-color: #715e5e;
+}
