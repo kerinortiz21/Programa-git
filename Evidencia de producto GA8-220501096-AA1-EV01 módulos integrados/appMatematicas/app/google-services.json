@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "885933775701",
+    "project_id": "appmatematicas-ba2fa",
+    "storage_bucket": "appmatematicas-ba2fa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885933775701:android:d3cd71898961ea32c02ddc",
+        "android_client_info": {
+          "package_name": "com.example.mathapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCADdQhfJ8e5SP-WLJmbOFNfk5h6QZNZi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
