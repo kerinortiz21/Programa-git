@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Talento Humano</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50">
+    
+    <!-- PANTALLA DE LOGIN -->
+    <div id="loginScreen" class="min-h-screen bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="bg-blue-100 rounded-full p-5 inline-block mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Talento Humano</h1>
+                <p class="text-gray-600 text-lg">L&H</p>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                    <input id="loginEmail" type="email" placeholder="admin@empresa.com"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Contraseña</label>
+                    <input id="loginPassword" type="password" placeholder="••••••••"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <button id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold text-lg transition-all shadow-lg hover:shadow-xl">
+                    Iniciar Sesión
+                </button>
+
+                <div id="loginError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-sm"></div>
+                
+                <p class="text-center text-sm text-gray-500 mt-4">
+                    Usuario de prueba: <span class="font-semibold">admin@empresa.com</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENÚ PRINCIPAL-->
+    <div id="dashboardScreen" class="hidden min-h-screen">
+        
+        <!-- Header -->
+        <div class="bg-white shadow-md">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-blue-600 rounded-lg p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">Talento Humano L&H</h1>
+                            <p class="text-sm text-gray-600">Área de Recursos Humanos</p>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-lg transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" x2="9" y1="12" y2="12"></line>
+                        </svg>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            
+            <!-- Barra de Acciones -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="flex-1">
+                        <input id="searchInput" type="text" placeholder="Buscar por nombre, identificación o cargo..."
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button id="newEmployeeBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="M12 5v14"></path>
+                        </svg>
+                        Nuevo Empleado
+                    </button>
+                </div>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Empleados</p>
+                            <p id="totalEmployees" class="text-3xl font-bold text-gray-800 mt-1">0</p>
+                        </div>
+                        <div class="bg-blue-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Activos</p>
+                            <p id="activeEmployees" class="text-3xl font-bold text-green-600 mt-1">0</p>
+                        </div>
+                        <div class="bg-green-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                <path d="M22 11v6"></path>
+                                <path d="M22 14h.01"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Retirados</p>
+                            <p id="inactiveEmployees" class="text-3xl font-bold text-orange-600 mt-1">0</p>
+                        </div>
+                        <div class="bg-orange-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
+                                <path d="M18 6 6 18"></path>
+                                <path d="m6 6 12 12"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Departamentos</p>
+                            <p id="departments" class="text-3xl font-bold text-purple-600 mt-1">0</p>
+                        </div>
+                        <div class="bg-purple-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
+                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                                <path d="M9 22v-4h6v4"></path>
+                                <path d="M8 6h.01"></path>
+                                <path d="M16 6h.01"></path>
+                                <path d="M12 6h.01"></path>
+                                <path d="M12 10h.01"></path>
+                                <path d="M12 14h.01"></path>
+                                <path d="M16 10h.01"></path>
+                                <path d="M16 14h.01"></path>
+                                <path d="M8 10h.01"></path>
+                                <path d="M8 14h.01"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Empleados -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-800">Listado de Empleados</h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Nombre</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Identificación</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Cargo</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">EPS</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Estado</th>
+                                <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeesTableBody" class="divide-y divide-gray-200">
+                            <!-- Los empleados se cargarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="noEmployees" class="hidden p-12 text-center">
+                    <p class="text-gray-500 text-lg">No hay empleados registrados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FORMULARIO REGISTRO DE EMPLEADO ========== -->
+    <div id="employeeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full my-8">
+            <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 flex items-center justify-between rounded-t-xl">
+                <h2 id="modalTitle" class="text-2xl font-bold">Nuevo Empleado</h2>
+                <button id="closeModalBtn" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 max-h-[calc(90vh-120px)] overflow-y-auto">
+                
+                <!-- Datos Personales -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Datos Personales</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre Completo *</label>
+                            <input id="nombreCompleto" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Identificación *</label>
+                            <input id="identificacion" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Lugar de Nacimiento</label>
+                            <input id="lugarNacimiento" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Sexo</label>
+                            <select id="sexo" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Seleccionar</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de Nacimiento</label>
+                            <input id="fechaNacimiento" type="date" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha Expedición</label>
+                            <input id="fechaExpedicion" type="date" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Estado Civil</label>
+                            <select id="estadoCivil" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Seleccionar</option>
+                                <option value="Soltero">Soltero(a)</option>
+                                <option value="Casado">Casado(a)</option>
+                                <option value="Union Libre">Unión Libre</option>
+                                <option value="Divorciado">Divorciado(a)</option>
+                                <option value="Viudo">Viudo(a)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel Educación</label>
+                            <select id="nivelEducacion" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Seleccionar</option>
+                                <option value="Primaria">Primaria</option>
+                                <option value="Bachillerato">Bachillerato</option>
+                                <option value="Tecnico">Técnico</option>
+                                <option value="Tecnologo">Tecnólogo</option>
+                                <option value="Profesional">Profesional</option>
+                                <option value="Especializacion">Especialización</option>
+                                <option value="Maestria">Maestría</option>
+                                <option value="Doctorado">Doctorado</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Dirección</label>
+                            <input id="direccion" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Teléfono</label>
+                            <input id="telefono" type="tel" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                            <input id="correo" type="email" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos Laborales -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Datos Laborales</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Cargo *</label>
+                            <input id="cargo" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha Ingreso</label>
+                            <input id="fechaIngreso" type="date" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo Contrato</label>
+                            <select id="tipoContrato" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Seleccionar</option>
+                                <option value="Indefinido">Indefinido</option>
+                                <option value="Fijo">Término Fijo</option>
+                                <option value="Obra o Labor">Obra o Labor</option>
+                                <option value="Prestacion">Prestación de Servicios</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Estado</label>
+                            <select id="estado" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="Activo">Activo</option>
+                                <option value="Retirado">Retirado</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Salario Básico</label>
+                            <input id="salarioBasico" type="number" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Auxilio Transporte</label>
+                            <input id="auxilioTransporte" type="number" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Rodamiento</label>
+                            <input id="rodamiento" type="number" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha Retiro</label>
+                            <input id="fechaRetiro" type="date" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seguridad Social -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Seguridad Social y Bancaria</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">EPS</label>
+                            <input id="eps" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fondo Pensión</label>
+                            <input id="fondoPension" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fondo Cesantías</label>
+                            <input id="fondoCesantias" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Caja Compensación</label>
+                            <input id="cajaCompensacion" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">ARL</label>
+                            <input id="arl" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Banco</label>
+                            <input id="banco" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Número Cuenta</label>
+                            <input id="numeroCuenta" type="text" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex gap-4">
+                    <button id="cancelModalBtn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Cancelar
+                    </button>
+                    <button id="saveEmployeeBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Guardar Empleado
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Modular v10) -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/validations.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/employees.js"></script>
+    <script type="module" src="js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+/* ========================================
+   ESTILOS PERSONALIZADOS
+   Sistema de Gestión de Talento Humano
+   ======================================== */
+
+/* Variables de colores personalizados (opcional) */
+:root {
+    --primary-blue: #2563eb;
+    --primary-indigo: #4f46e5;
+    --success-green: #059669;
+    --warning-orange: #ea580c;
+    --danger-red: #dc2626;
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos para inputs con focus mejorado */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Animación para el modal */
+#employeeModal {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Scroll personalizado para el modal */
+#employeeModal .overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+}
+
+#employeeModal .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+#employeeModal .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+}
+
+#employeeModal .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Hover mejorado para filas de tabla */
+tbody tr:hover {
+    transform: scale(1.001);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Animación para botones */
+button {
+    transition: all 0.2s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Loader (opcional para futuras mejoras) */
+.loader {
+    border: 3px solid #f3f4f6;
+    border-top: 3px solid var(--primary-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animación para notificaciones */
+.notification {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+/* Estilos para campos con error */
+.border-red-500 {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.border-red-500:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.field-error {
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Estilo para campos requeridos */
+label:has(+ input:required)::after,
+label:has(+ select:required)::after {
+    content: " *";
+    color: #dc2626;
+}
+
+/* Responsive: Ocultar columnas en móviles */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none;
+    }
+}
+
+/* Print styles (para imprimir) */
+@media print {
+    #loginScreen,
+    #logoutBtn,
+    #newEmployeeBtn,
+    button {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+}
